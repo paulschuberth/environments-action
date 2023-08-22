@@ -1,0 +1,29 @@
+---
+name: On change to main
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      major: ${{ steps.release.outputs.major }}
+      minor: ${{ steps.release.outputs.minor }}
+      patch: ${{ steps.release.outputs.patch }}
+      upload_url: ${{ steps.release.outputs.upload_url }}
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          token: ${{ secrets.PAT }}
+          release-type: simple
+          changelog-types: >-
+            [
+            {"type":"feat","section":"Features 🚀","hidden":false},
+            {"type":"fix","section":"Bug Fixes 🐛","hidden":false},
+            {"typexchore","section":"Miscellaneous 🧹","hidden":false},
+            {"type":"perf", "section": "Performance Improvements 🏎️"}
+            ]
