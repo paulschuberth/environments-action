@@ -1,0 +1,72 @@
+---
+name: Check
+on:
+  pull_request:
+    types: [ opened, reopened, synchronize ]
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  checks: write
+  pull-requests: write
+  actions: read
+  issues: read
+  contents: read
+  packages: read
+
+jobs:
+  test:
+    env:
+      GH_REPO: paulschuberth/environments-action
+      GH_TOKEN: ${{ secrets.PAT }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./
+        name: Positive example
+        id: example-one
+        with:
+          environment: example
+
+      - name: Assert positive example
+        if: ${{ steps.example-one.outputs.exists != 'true' }}
+        shell: bash
+        run: exit 1
+
+      - uses: ./
+        name: Negative example
+        continue-on-error: true
+        id: example-two
+        with:
+          environment: non-existant
+
+      - name: Assert negative example
+        if: ${{ steps.example-two.outputs.exists != 'false' }}
+        shell: bash
+        run: exit 1
+
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: reviewdog/action-actionlint@v1
+        with:
+          reporter: github-pr-review
+          fail_on_error: true
+          filter_mode: nofilter
+
+      - name: Lint
+        uses: github/super-linter/slim@v5
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IGNORE_GENERATED_FILES: true
+          IGNORE_GITIGNORED_FILES: true
