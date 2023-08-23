@@ -17,7 +17,7 @@ runs:
   using: composite
   steps:
     - name: Query GitHub API
-      shell: bash
+      shell: bash --noprofile --norc -e {0}
       run: >-
         gh api
         -H "Accept: application/vnd.github+json"
