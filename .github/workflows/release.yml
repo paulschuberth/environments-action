@@ -22,8 +22,8 @@ jobs:
           release-type: simple
           changelog-types: >-
             [
-            {"type":"feat","section":"Features 🚀","hidden":false},
-            {"type":"fix","section":"Bug Fixes 🐛","hidden":false},
-            {"typexchore","section":"Miscellaneous 🧹","hidden":false},
-            {"type":"perf", "section": "Performance Improvements 🏎️"}
+            {"type": "feat","section":"Features 🚀","hidden":false},
+            {"type": "fix","section":"Bug Fixes 🐛","hidden":false},
+            {"type": "chore","section":"Miscellaneous 🧹","hidden":false},
+            {"type": "perf", "section": "Performance Improvements 🏎️"}
             ]
