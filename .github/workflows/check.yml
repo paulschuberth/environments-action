@@ -10,12 +10,13 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  checks: write
-  pull-requests: write
   actions: read
-  issues: read
+  checks: write
   contents: read
+  issues: read
   packages: read
+  pull-requests: write
+  statuses: write
 
 jobs:
   test:
