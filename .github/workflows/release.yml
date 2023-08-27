@@ -23,7 +23,7 @@ jobs:
           changelog-types: >-
             [
             {"type": "feat","section":"Features 🚀","hidden":false},
-            {"type": "fix","section":"Bug Fixes 🐛","hidden":false},
+            {"type": "fix","section":"Bugfixes 🐛","hidden":false},
             {"type": "chore","section":"Miscellaneous 🧹","hidden":false},
             {"type": "perf", "section": "Performance Improvements 🏎️"}
             ]
