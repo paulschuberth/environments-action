@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3](https://github.com/paulschuberth/environments-action/compare/v0.0.2...v0.0.3) (2023-09-08)
+
+
+### Miscellaneous 🧹
+
+* **deps:** update actions/checkout action to v4 ([07815f3](https://github.com/paulschuberth/environments-action/commit/07815f3804a72a9c943b0baa1550cb5f7c468d02))
+
 ## [0.0.2](https://github.com/paulschuberth/environments-action/compare/v0.0.1...v0.0.2) (2023-08-23)
 
 
