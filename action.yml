@@ -32,9 +32,13 @@ runs:
       if: ${{ failure() || success() }}
       id: result
       shell: bash
-      run: >-
+      run: |
+        echo "Error content:"
+        cat error
         if [ -s error ]; then
+          echo "::debug::Found error output, assuming the environment does not exist"
           echo "exists=false" >> "$GITHUB_OUTPUT"
         else
+          echo "::debug::No error output found, the environment does exist"
           echo "exists=true" >> "$GITHUB_OUTPUT"
         fi

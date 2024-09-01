@@ -38,6 +38,11 @@ jobs:
         shell: bash
         run: exit 1
 
+      - name: Clean up
+        if: ${{ failure() || success() }}
+        run: rm error output
+        continue-on-error: true
+
       - uses: ./
         name: Negative example
         continue-on-error: true
@@ -50,6 +55,11 @@ jobs:
         if: ${{ steps.example-two.outputs.exists != 'false' }}
         shell: bash
         run: exit 1
+
+      - name: Clean up
+        if: ${{ failure() || success() }}
+        run: rm error output
+        continue-on-error: true
 
 
   lint:
