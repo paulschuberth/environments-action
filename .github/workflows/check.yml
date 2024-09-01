@@ -75,9 +75,10 @@ jobs:
           filter_mode: nofilter
 
       - name: Lint
-        uses: github/super-linter/slim@v7
+        uses: super-linter/super-linter/slim@v7
         env:
           DEFAULT_BRANCH: main
+          FILTER_REGEX_EXCLUDE: CHANGELOG.md
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IGNORE_GENERATED_FILES: true
           IGNORE_GITIGNORED_FILES: true
