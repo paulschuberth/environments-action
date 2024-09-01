@@ -33,8 +33,6 @@ runs:
       id: result
       shell: bash
       run: |
-        echo "Error content:"
-        cat error
         if [ -s error ]; then
           echo "::debug::Found error output, assuming the environment does not exist"
           echo "exists=false" >> "$GITHUB_OUTPUT"

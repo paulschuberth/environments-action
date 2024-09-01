@@ -61,7 +61,6 @@ jobs:
         run: rm error output
         continue-on-error: true
 
-
   lint:
     runs-on: ubuntu-latest
     steps:
