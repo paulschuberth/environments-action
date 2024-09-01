@@ -2,8 +2,8 @@
 name: Check
 on:
   pull_request:
-    types: [ opened, reopened, synchronize ]
-    branches: [ main ]
+    types: [opened, reopened, synchronize]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -75,7 +75,7 @@ jobs:
           filter_mode: nofilter
 
       - name: Lint
-        uses: github/super-linter/slim@v5
+        uses: github/super-linter/slim@v7
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
