@@ -2,8 +2,8 @@
 name: Check
 on:
   pull_request:
-    types: [ opened, reopened, synchronize ]
-    branches: [ main ]
+    types: [opened, reopened, synchronize]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -49,7 +49,6 @@ jobs:
         if: ${{ steps.example-two.outputs.exists != 'false' }}
         shell: bash
         run: exit 1
-
 
   lint:
     runs-on: ubuntu-latest

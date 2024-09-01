@@ -9,9 +9,8 @@ inputs:
 
 outputs:
   exists:
-    description: '`true` if a enviromment for the given name exists.'
+    description: "`true` if a enviromment for the given name exists."
     value: ${{ steps.result.outputs.exists }}
-
 
 runs:
   using: composite
