@@ -6,6 +6,9 @@ inputs:
   environment:
     required: true
     description: The name of the environemnt to check.
+  repoWithOwner:
+    required: true
+    description: The owner and repo name separated by a forward slash. e.g. `paulschuberth/environments-action`
 
 outputs:
   exists:
@@ -22,16 +25,18 @@ runs:
         gh api
         -H "Accept: application/vnd.github+json"
         -H "X-GitHub-Api-Version: 2022-11-28"
-        "/repos/{owner}/{repo}/environments/${{ inputs.environment }}"
+        "/repos/${{ inputs.repoWithOwner }}/environments/${{ inputs.environment }}"
         2>error >output | true
 
     - name: Evaluate
       if: ${{ failure() || success() }}
       id: result
       shell: bash
-      run: >-
+      run: |
         if [ -s error ]; then
+          echo "::debug::Found error output, assuming the environment does not exist"
           echo "exists=false" >> "$GITHUB_OUTPUT"
         else
+          echo "::debug::No error output found, the environment does exist"
           echo "exists=true" >> "$GITHUB_OUTPUT"
         fi

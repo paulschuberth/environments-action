@@ -21,7 +21,6 @@ permissions:
 jobs:
   test:
     env:
-      GH_REPO: paulschuberth/environments-action
       GH_TOKEN: ${{ secrets.PAT }}
     runs-on: ubuntu-latest
     steps:
@@ -32,11 +31,17 @@ jobs:
         id: example-one
         with:
           environment: example
+          repoWithOwner: paulschuberth/environments-action
 
       - name: Assert positive example
         if: ${{ steps.example-one.outputs.exists != 'true' }}
         shell: bash
         run: exit 1
+
+      - name: Clean up
+        if: ${{ failure() || success() }}
+        run: rm error output
+        continue-on-error: true
 
       - uses: ./
         name: Negative example
@@ -44,12 +49,17 @@ jobs:
         id: example-two
         with:
           environment: non-existant
+          repoWithOwner: paulschuberth/environments-action
 
       - name: Assert negative example
         if: ${{ steps.example-two.outputs.exists != 'false' }}
         shell: bash
         run: exit 1
 
+      - name: Clean up
+        if: ${{ failure() || success() }}
+        run: rm error output
+        continue-on-error: true
 
   lint:
     runs-on: ubuntu-latest
